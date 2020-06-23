@@ -139,102 +139,6 @@ const fg = {
 }
 
 // Game control
-// canvas.onmousedown = (e)=>{
-//     let rect = canvas.getBoundingClientRect(),
-//         clickX = e.clientX - rect.left,
-//         clickY = e.clientY - rect.top;
-
-//     const soundBtn = sounds.on;
-
-//     if(clickX >= soundBtn.x && clickX <= soundBtn.x + soundBtn.w && clickY >= soundBtn.y && clickY <= soundBtn.y + soundBtn.h){   
-//         sounds.isSoundOff = !sounds.isSoundOff
-
-//         if(sounds.isSoundOff)
-//             localStorage.setItem('isSoundOff', true)
-//         else if(localStorage.getItem('isSoundOff'))
-//             localStorage.removeItem('isSoundOff')
-
-//         if(sounds.isSoundOff && state.current === state.over){
-//             curDieSound.pause()
-//             curDieSound.currentTime = 0;
-
-//             const isLvlUpPlaying = isPlaying(curLvlUpSound)
-//             if(isLvlUpPlaying){
-//                 curLvlUpSound.pause()
-//                 curLvlUpSound.currentTime = 0;
-//             }
-//         }
-//         return;
-//     }
-
-//     switch(state.current){
-//         case state.getReady:
-//             state.current = state.game;
-//             hearts.lifeAmount = 1;
-
-//             if(isTutorial){
-//                 isTutorial = false;
-//                 localStorage.setItem('isTutorial', false);
-//             }
-//             break;
-//         case state.game:
-//             if(clickX >= 0 && clickX < canvas.clientWidth/2){
-//                 isTouchLeftSide = true
-//                 dino.isDownAnimation = true
-//                 dino.fastGravity = true 
-
-//                 dino.y = dino.animation.down[1].default;
-//             } else if(dino.onFloor)
-//                 dino.jump()
-//             break;
-//         case state.over:
-//             const startBtn = gameOverPanel.restartBtn;
-
-//             if(clickX >= startBtn.x && clickX <= startBtn.x + startBtn.w && clickY >= startBtn.y && clickY <= startBtn.y + startBtn.h){   
-//                 state.current = state.game;
-//                 cactuses.position = [];
-//                 birds.position = {};
-//                 score.value = 0;
-//                 hearts.lifeAmount = 1;
-//                 dino.isDownAnimation = false;
-//                 dino.y = fg.y - dino.animation.stand[1].h;
-//                 dino.speed = 1.5;
-//                 indexCactus = NaN;
-//                 cactuses.periodSpawn = 80;
-
-//                 const isDiePlaying = isPlaying(curDieSound)
-//                 if(isDiePlaying){
-//                     curDieSound.pause()
-//                     curDieSound.currentTime = 0;
-//                 }
-
-//                 const isLvlUpPlaying = isPlaying(curLvlUpSound)
-//                 if(isLvlUpPlaying){
-//                     curLvlUpSound.pause()
-//                     curLvlUpSound.currentTime = 0;
-//                 }
-//             }
-//             break;
-//     }
-// }
-
-// canvas.onmouseup = (e)=>{
-//     if(state.current !== state.game) return;
-
-//     let rect = canvas.getBoundingClientRect(),
-//         clickX = e.clientX - rect.left,
-//         clickY = e.clientY - rect.top;
-
-//     if(clickX >= 0 && clickX < canvas.clientWidth/2){  
-//         dino.isDownAnimation = false
-//         dino.fastGravity = false
-
-//         if(dino.onFloor){
-//             dino.y = fg.y - dino.animation.stand[1].h;
-//         } 
-//     }
-// }
-
 
 // CLICK FOR MOBILE 
 let isTouchLeftSide = false;
@@ -333,105 +237,6 @@ const handleTouchEnd = (e) => {
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchend', handleTouchEnd, false);
 
-
-// SWIPE
-// let xDown = null,
-//     yDown = null,
-//     isSwiped = false;                                                
-
-// const handleTouchStart = (e) => {
-//     console.log('start touch')
-//     const firstTouch = e.touches[0];                                      
-//     xDown = firstTouch.clientX;                                      
-//     yDown = firstTouch.clientY;                                 
-// };                                                
-
-// const handleTouchMove = (e) => {
-//     if ( ! xDown || ! yDown ) return;
-
-//     const xUp = e.touches[0].clientX,                                
-//         yUp = e.touches[0].clientY;
-
-//     const xDiff = xDown - xUp,
-//         yDiff = yDown - yUp;
-
-//     if ( Math.abs( xDiff ) < Math.abs( yDiff ) && yDiff < 0 ) {
-//         console.log('swiped down')
-//         isSwiped = true
-
-    //         if(state.current === state.game){
-    //         dino.isDownAnimation = true
-    //         dino.gravity = 1.5
-
-    //         if(dino.onFloor){
-    //             dino.y = fg.y - dino.animation.down[1].h;
-    //         }
-    //     }                                                             
-    // }
-//     /* reset values */
-//     xDown = null;
-//     yDown = null;                                             
-// };
-
-// const handleTouchEnd = (e)=>{
-//     console.log('end touch ',e)
-
-//     if(isSwiped && state.current === state.game){
-//         console.log('end swipe')
-//         isSwiped = false
-//         dino.isDownAnimation = false
-//         dino.gravity = 1
-
-//         if(dino.onFloor){
-//             dino.y = fg.y - dino.animation.stand[1].h;
-//         }
-//     }
-// }
-
-// document.addEventListener('touchstart', handleTouchStart, false);        
-// document.addEventListener('touchmove', handleTouchMove, false);
-// document.addEventListener('touchend', handleTouchEnd, false); 
-
-
-// For desktop
-// document.onkeydown = (e) => {
-
-//     if(state.current === state.game){
-//         switch(e.keyCode){
-//             case 40:
-//                 dino.isDownAnimation = true
-//                 dino.gravity = 1.5
-
-//                 if(dino.onFloor){
-//                     dino.y = canvas.clientHeight*0.65 - dino.animation.down[1].h;
-//                 }
-
-//                 break;
-//             case 38:
-//                 if(dino.onFloor){
-//                     dino.jump()
-//                 }
-//                 break;
-//         }
-//     }
-// }
-
-// document.onkeyup = (e) => {
-
-//     if(state.current === state.game){
-//         switch(e.keyCode){
-//             case 40:
-//                 dino.isDownAnimation = false
-//                 dino.gravity = 1
-
-//                 if(dino.onFloor){
-//                     dino.y = canvas.clientHeight*0.65 - dino.animation.stand[1].h;
-//                 }
-//                 break;
-//         }
-//     }
-// }
-
 // Dino
 const dino = {
     animation : {
@@ -467,8 +272,6 @@ const dino = {
     isFallingDefault: 0,
     isFallingHeight: 90,
 
-    // default: canvas.clientHeight*0.65 - 94,
-
     fastGravity: false,
     step: 0,
     jumpHeight: 30,
@@ -484,8 +287,12 @@ const dino = {
 
         if(this.isDownAnimation)
             curDino = this.animation.down[this.frame];
-
-        // double stand
+        
+        ctx.drawImage(sprite, curDino.sX, curDino.sY, curDino.w, curDino.h, this.x, this.y, curDino.w, curDino.h)
+        
+        // Draw hitboxes
+        
+        // stand
         // ctx.setLineDash([])
         // ctx.beginPath();
         // ctx.arc(this.x+curDino.w/1.35,this.y+curDino.h/4,20,0,Math.PI*2,true);
@@ -495,7 +302,7 @@ const dino = {
         // ctx.arc(this.x+curDino.w/2.9,this.y+curDino.h/1.55,30,0,Math.PI*2,true);
         // ctx.stroke()
 
-        // double down
+        // down
         // ctx.setLineDash([])
         // ctx.beginPath();
         // ctx.arc(this.x+curDino.w/1.3,this.y+curDino.h/2.5,20,0,Math.PI*2,true);
@@ -504,9 +311,8 @@ const dino = {
         // ctx.beginPath();
         // ctx.arc(this.x+curDino.w/3.3,this.y+curDino.h/2,30,0,Math.PI*2,true);
         // ctx.stroke()
-
-        ctx.drawImage(sprite, curDino.sX, curDino.sY, curDino.w, curDino.h, this.x, this.y, curDino.w, curDino.h)
-
+        
+        // dynamic         
         // ctx.setLineDash([])
         // ctx.beginPath();
         // ctx.arc(this.x+this.animation.stand[4].xCenterHead,this.y+this.animation.stand[4].yCenterHead,this.radiusHead,0,Math.PI*2,true);
@@ -620,7 +426,9 @@ const cactuses = {
     draw(){
         for(let i = 0; i< this.position.length; i++){
             let p = this.position[i];
-
+            
+            // Draw hitbox of cactuses
+            
             // ctx.setLineDash([])
             // ctx.beginPath();
             // ctx.arc(p.x+p.w/2,p.cY,p.radius,0,Math.PI*2,true);
@@ -747,7 +555,8 @@ const birds = {
             let curBird = this.animation[this.frame];
 
             ctx.drawImage(sprite, curBird.sX, curBird.sY, curBird.w, curBird.h, this.position.x, this.position.y, curBird.w, curBird.h)
-
+            
+            // Draw hitboxes of bird
             // wings down
 
             // ctx.setLineDash([])
@@ -994,41 +803,6 @@ const score = {
     }
 }
 
-// Settings
-// const settings = {
-//     sX: 1054,
-//     sY: 40,
-//     w: 35,
-//     h: 35,
-//     x: 40,
-//     y: 40,
-
-//     isOpen: false,
-
-//     draw(){
-//         ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h)
-
-//         if(this.isOpen){
-
-//             ctx.fillStyle = 'rgb(0,0,0,.6)';
-//             ctx.filter = 'blur(5px)';
-//             ctx.fillRect(0,0,canvas.clientWidth,canvas.clientHeight);
-
-            
-//             ctx.filter = 'blur(0)';
-//             ctx.fillStyle = 'none';
-
-//             ctx.setLineDash([]);
-//             ctx.fillStyle = '#FFF';
-//             ctx.strokeStyle = '#000';
-//             ctx.textAlign = 'center';
-//             ctx.font = '40px Arial';
-//             ctx.fillText('Some Text', canvas.clientWidth/2, 400);
-//             ctx.strokeText('Some Text', canvas.clientWidth/2, 400);
-//         }
-//     }
-// }
-
 // Get Ready - tutorial image or sleeping dino
 const getReady = {
     tap: {
@@ -1054,8 +828,6 @@ const getReady = {
         w: 12, 
         h: 35,
     },
-
-    // swap:{sX:1099, sY:2, w:70, h:70, x:canvas.clientWidth/2, y:100},
     
     x:canvas.clientWidth/2,
     y:canvas.clientHeight/4,
@@ -1082,13 +854,6 @@ const getReady = {
 
             ctx.drawImage(sprite, dinos.jump.sX, dinos.jump.sY, dinos.jump.w, dinos.jump.h, this.x*1.5-dinos.jump.w/2, dinos.y - dinos.jump.h, dinos.jump.w, dinos.jump.h);
 
-            // ctx.setLineDash([0]);
-            // ctx.beginPath();
-            // ctx.moveTo(this.x*1.5-dinos.stand.w/2-20,fg.y-40);
-            // ctx.lineTo(this.x*1.5-dinos.stand.w/2,fg.y-50);
-            // ctx.stroke();
-
-
             ctx.setLineDash([]);
             ctx.fillStyle = '#FFF';
             ctx.strokeStyle = '#000';
@@ -1097,18 +862,14 @@ const getReady = {
             ctx.fillText('Jump', this.x*1.5, dinos.y*0.7);
             ctx.strokeText('Jump', this.x*1.5, dinos.y*0.7);
             
-            ctx.setLineDash([20, 8]);/*dashes are 5px and spaces are 3px*/
+            ctx.setLineDash([20, 8]);/*dashes are 20px and spaces are 8px*/
             ctx.beginPath();
             ctx.moveTo(canvas.clientWidth/2, 0);
-            // ctx.lineTo(canvas.clientWidth/2, this.swap.y);
-            // ctx.moveTo(canvas.clientWidth/2, this.swap.y+this.swap.h);
             ctx.lineTo(canvas.clientWidth/2, canvas.clientHeight);
             ctx.stroke();
 
             ctx.drawImage(sprite, this.arrows.downX, this.arrows.sY, this.arrows.w, this.arrows.h, this.x/2-this.arrows.w/2+10, this.y*1.6, this.arrows.w, this.arrows.h);
             ctx.drawImage(sprite, this.arrows.upX, this.arrows.sY, this.arrows.w, this.arrows.h, this.x*1.5-this.arrows.w/2+10, this.y*1.6, this.arrows.w, this.arrows.h);
-        
-            // ctx.drawImage(sprite, this.swap.sX, this.swap.sY, this.swap.w, this.swap.h, this.x-this.swap.w/2, this.swap.y, this.swap.w, this.swap.h);
 
         } else{
             ctx.drawImage(sprite, dinos.stand.sX, dinos.stand.sY, dinos.stand.w, dinos.stand.h, dinos.stand.x, dinos.y - dinos.stand.h, dinos.stand.w, dinos.stand.h);
@@ -1172,8 +933,7 @@ const draw = () => {
     }
     
     if(!isTutorial) hearts.draw()
-
-    // settings.draw()
+    
     sounds.draw()
 }
 
